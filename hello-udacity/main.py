@@ -16,10 +16,24 @@
 #
 import webapp2
 
+form="""
+<form method="post" >
+
+	<input name="q">
+	<input type="Submit">
+
+</form>
+
+
+"""
+
 class MainHandler(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Hello Udacity!')
+   def get(self):
+      self.response.out.write(form)
+    	#self.response.headers['Content-Type']='Text/html' 
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
 ], debug=True)
+
+
