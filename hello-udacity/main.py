@@ -41,13 +41,15 @@ form="""
 
 """
 
-class MainHandler(webapp2.RequestHandler):
+class MainPage(webapp2.RequestHandler):
    def get(self):
-      self.response.out.write(form)
-    	#self.response.headers['Content-Type']='Text/html' 
+       	self.response.out.write(form)
+ 
+   def post(self):
+   		self.response.out.write("Thanks! That's a valid day!")                          
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainPage)
 ], debug=True)
 
 
