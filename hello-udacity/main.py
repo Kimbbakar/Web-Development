@@ -18,9 +18,13 @@ import webapp2
 
 form="""
 <form method="post" >
-
-	<input name="q">
-	<input type="Submit">
+	<p>What is your birthday? </p>
+	<input type="text" name="month" value="Month">
+	<input type="text" name="day" value="Day">
+	<input type="text" name="year" value="Year">
+	<br>
+	<br>
+	<input type="submit" >
 
 </form>
 
