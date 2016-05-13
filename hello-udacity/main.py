@@ -22,7 +22,7 @@ form="""
 
 	<lable>
 		Month
-	<input type="text" name="month" >
+	<input type="text" name='month' >
 	</lable>
 	<lable>
 		Day
@@ -41,12 +41,55 @@ form="""
 
 """
 
+months = ['January',
+          'February',
+          'March',
+          'April',
+          'May',
+          'June',
+          'July',
+          'August',
+          'September',
+          'October',
+          'November',
+          'December']
+
+def valid_day(day):
+    if day.isdigit()==True:
+        day=int(day)
+        if day >0 and day <= 31:
+            return True
+    return False
+
+def valid_month(month):
+    for i in months:
+        if i.lower() == month.lower():
+            return True
+    return False
+
+def valid_year(year):
+    
+    if year.isdigit():
+        year = int(year)
+        if year>=1900 and year<=2020:
+            return True
+    return False
+
+
 class MainPage(webapp2.RequestHandler):
    def get(self):
        	self.response.out.write(form)
  
    def post(self):
-   		self.response.out.write("Thanks! That's a valid day!")                          
+   		user_month=valid_month(self.request.get('month') )
+   		user_year=valid_month(self.request.get('year') )
+   		user_day=valid_month(self.request.get('day') )
+
+   		if(user_day and user_year and user_month):
+   			self.response.out.write("Thanks! That's a valid day!")                          
+   		else: 
+   			self.response.out.write(form)
+
 
 app = webapp2.WSGIApplication([
     ('/', MainPage)
