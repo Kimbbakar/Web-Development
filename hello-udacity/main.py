@@ -19,22 +19,14 @@ import webapp2
 form="""
 <form method="post" >
 	<p>What is your birthday? </p>
-
-	<lable>
-		Month
-	<input type="text" name='month' >
-	</lable>
-	<lable>
-		Day
-	<input type="text" name="day">
-	</lable>
-	<lable>
-	 	Year
-	<input type="text" name="year" >
-	</lable>
+	<br>
+	<lable> Month <input type="text" name='month' > </lable>
+	<lable> Day <input type="text" name="day"> </lable>
+	<lable> Year <input type="text" name="year" > </lable>
+	<div style="color: red">%(error)s</div>
 	<br>
 	<br>
-	<input type="submit" >
+	<input type="submit" > 
 
 </form>
 
@@ -74,10 +66,15 @@ def valid_year(year):
             return True
     return False
 
+#"Im part of the test"
 
 class MainPage(webapp2.RequestHandler):
+
    def get(self):
-       	self.response.out.write(form)
+   	self.response.out.write(form %{"error": "" })
+
+#   		self.write_form()
+#       	self.response.out.write(form%{"error":"Im part of the test"})
  
    def post(self):
    		user_month=valid_month(self.request.get('month') )
@@ -87,8 +84,8 @@ class MainPage(webapp2.RequestHandler):
 
    		if(user_day and user_year and user_month):
    			self.response.out.write("Thanks! That's a valid day!")                          
-   		else: 
-   			self.response.out.write(form)
+   		else:		
+   			self.response.out.write(form%{"error":"This is something invalid,try again friend"})
 
 
 app = webapp2.WSGIApplication([
