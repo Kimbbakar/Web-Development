@@ -68,9 +68,8 @@ def valid_month(month):
     return False
 
 def valid_year(year):
-    
     if year.isdigit():
-        year = int(year)
+        year = int(year)                       
         if year>=1900 and year<=2020:
             return True
     return False
@@ -82,8 +81,9 @@ class MainPage(webapp2.RequestHandler):
  
    def post(self):
    		user_month=valid_month(self.request.get('month') )
-   		user_year=valid_month(self.request.get('year') )
-   		user_day=valid_month(self.request.get('day') )
+   		user_year=valid_year(self.request.get('year') )
+   		user_day=valid_day(self.request.get('day') )
+ 	                       
 
    		if(user_day and user_year and user_month):
    			self.response.out.write("Thanks! That's a valid day!")                          
