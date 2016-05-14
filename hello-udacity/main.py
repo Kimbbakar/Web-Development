@@ -20,10 +20,12 @@ form="""
 <form method="post" >
 	<p>What is your birthday? </p>
 	<br>
-	<lable> Month <input type="text" name='month' > </lable>
-	<lable> Day <input type="text" name="day"> </lable>
-	<lable> Year <input type="text" name="year" > </lable>
-	<div style="color: red">%(error)s</div>
+	<lable> Month <input type="text" name='month' value="%(month)s" > </lable>
+	<lable> Day <input type="text" name="day" value="%(day)s"> </lable>
+	<lable> Year <input type="text" name="year" value="%(year)s"> </lable>
+	<br>
+  <br>
+  <div style="color: red">%(error)s</div>
 	<br>
 	<br>
 	<input type="submit" > 
@@ -71,21 +73,25 @@ def valid_year(year):
 class MainPage(webapp2.RequestHandler):
 
    def get(self):
-   	self.response.out.write(form %{"error": "" })
+   	self.response.out.write(form %{"error": "","month":"","year":"","day":"" })
 
 #   		self.write_form()
 #       	self.response.out.write(form%{"error":"Im part of the test"})
  
    def post(self):
-   		user_month=valid_month(self.request.get('month') )
-   		user_year=valid_year(self.request.get('year') )
-   		user_day=valid_day(self.request.get('day') )
+    month=self.request.get('month')
+    day=self.request.get('day')
+    year=self.request.get('year')
+  
+    user_month=valid_month(month )
+    user_year=valid_year(year )
+    user_day=valid_day(day)
  	                       
 
-   		if(user_day and user_year and user_month):
-   			self.response.out.write("Thanks! That's a valid day!")                          
-   		else:		
-   			self.response.out.write(form%{"error":"This is something invalid,try again friend"})
+    if(user_day and user_year and user_month):
+      self.response.out.write("Thanks! That's a valid day!")                          
+    else:		
+      self.response.out.write(form%{"error":"One or more inputs are invalid,try again friend!","month":month,"year":year,"day":day})
 
 
 app = webapp2.WSGIApplication([
