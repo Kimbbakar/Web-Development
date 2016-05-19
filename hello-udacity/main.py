@@ -16,6 +16,7 @@
 #
 import webapp2
 
+
 form="""
 <form method="post" >
 	<p>What is your birthday? </p>
@@ -47,6 +48,14 @@ months = ['January',
           'October',
           'November',
           'December']
+
+def escape_html(s):
+    s=s.replace("&","&amp;")
+    s=s.replace(">","&gt;")
+    s=s.replace("<","&lt;")
+    s=s.replace('"',"&quot;")
+    return s;
+
 
 def valid_day(day):
     if day.isdigit()==True:
@@ -91,13 +100,15 @@ class MainPage(webapp2.RequestHandler):
     if(user_day and user_year and user_month):
       self.response.out.write("Thanks! That's a valid day!")                          
     else:
-      if(user_day==False):
-        day=""
-      if(user_month==False):
-        month=""
-      if(user_year==False):
-        year=""
-      self.response.out.write(form%{"error":"One or more inputs are invalid,try again friend!","month":month,"year":year,"day":day})
+#      if(user_day==False):
+#        day=""
+#      if(user_month==False):
+#        month=""
+#      if(user_year==False):
+#        year=""
+
+#      self.response.out.write(form%{"error":"One or more inputs are invalid,try again friend!","month":month,"year":year,"day":day})
+      self.response.out.write(form%{"error":"One or more inputs are invalid,try again friend!","month": escape_html(month),"year": escape_html(year),"day": escape_html(day)})
 
 
 app = webapp2.WSGIApplication([
