@@ -98,7 +98,7 @@ class MainPage(webapp2.RequestHandler):
  	                       
 
     if(user_day and user_year and user_month):
-      self.response.out.write("Thanks! That's a valid day!")                          
+      self.redirect('/thanks') 
     else:
 #      if(user_day==False):
 #        day=""
@@ -111,8 +111,12 @@ class MainPage(webapp2.RequestHandler):
       self.response.out.write(form%{"error":"One or more inputs are invalid,try again friend!","month": escape_html(month),"year": escape_html(year),"day": escape_html(day)})
 
 
+class ThanksHandle(webapp2.RequestHandler):
+  def get(self):
+    self.response.out.write("Thanks! That's a valid day!")                           
+
 app = webapp2.WSGIApplication([
-    ('/', MainPage)
+    ('/', MainPage),('/thanks',ThanksHandle)
 ], debug=True)
 
 
