@@ -90,7 +90,13 @@ class MainPage(webapp2.RequestHandler):
 
     if(user_day and user_year and user_month):
       self.response.out.write("Thanks! That's a valid day!")                          
-    else:		
+    else:
+      if(user_day==False):
+        day=""
+      if(user_month==False):
+        month=""
+      if(user_year==False):
+        year=""
       self.response.out.write(form%{"error":"One or more inputs are invalid,try again friend!","month":month,"year":year,"day":day})
 
 
